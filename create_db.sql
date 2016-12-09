@@ -83,7 +83,7 @@ CREATE TABLE tblTags (
 --5 create tblPrivacy
 IF OBJECT_ID('tblPrivacy','U') IS NULL
 CREATE TABLE tblPrivacy (
-    id int not null IDENTITY(1,1) primary key,
+    id int  IDENTITY(1,1) primary key,
     status nvarchar(255),
     description nvarchar(255)
 )
@@ -116,7 +116,6 @@ CREATE TABLE tblGroups (
     content NTEXT,
     location_ID char(6) references tblLocations(zipCode),
     adminID int references tblUsers(id),
-    --privacyID int references tblPosts(privacyID),
     privacyID int references tblPrivacy(id),
     catID int references tblCategories(id)
 )
@@ -182,6 +181,38 @@ INSERT INTO tblLocations VALUES('64-300','Warszawa','Wielkopolskie','Polska')
 INSERT INTO tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,'63-300')
 INSERT INTO tblUsers VALUES('Adam','Domagalski','adam@op.pl','1231231','1232',1,DEFAULT,'64-300')
 
+-- CATEGORIES
+INSERT INTO tblCategories VALUES('gotowanie')
+INSERT INTO tblCategories VALUES('sprzątanie')
+
+-- TAGS
+INSERT INTO tblTags VALUES('schabowe',1)
+INSERT INTO tblTags VALUES('mop',2)
+-- Relationships
+INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie')
+ 
+-- FREINDSHIPS
+INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT)
+ 
+--PRIVACY
+ INSERT INTO tblPrivacy VALUES(1,'ALL'),(2,'FrOnly')
+
+-- GROUPS
+INSERT INTO tblGroups VALUES('fani gotowania','lubimy gotowac','64-300',1,1,1)
+
+-- POSTS
+INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);
+INSERT INTO tblPosts VALUES(DEFAULT,'Kupiłem pralkę!','Fajna ta pralka',2,2);
+
+-- Comments
+INSERT INTO tblComments VALUES(DEFAULT,1,1,'Hahahahaahaha jak on to zrobił!?'),(DEFAULT,2,2,'Za ile?')
+
+-- POSTTAGS
+INSERT INTO tblPostGroups VALUES(1,1)
+INSERT INTO tblPostGroups VALUES(1,2)
+
+-- MEMBERS
+INSERT INTO tblMembers VALUES(1,1),(2,1)
 
 SELECT * FROM tblUsers;
 SELECT * FROM tblLocations;
