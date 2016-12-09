@@ -182,20 +182,6 @@ INSERT INTO tblLocations VALUES('64-300','Warszawa','Wielkopolskie','Polska')
 INSERT INTO tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,'63-300')
 INSERT INTO tblUsers VALUES('Adam','Domagalski','adam@op.pl','1231231','1232',1,DEFAULT,'64-300')
 
--- CATEGORIES
-
-IF OBJECT_ID('tblUsers','U') IS NULL
-CREATE TABLE tblUsers (
-    id int not null IDENTITY(1,1) primary key,
-    name nvarchar(50),
-    surname nvarchar(50),
-    email varchar(30),
-    password varchar(255),
-    phone varchar(15),
-    gender char(1) CHECK (gender in (1,0)), -- 1: facet 0: kobieta można to zmienić na liste czy coś
-    since datetime default CURRENT_TIMESTAMP,
-    location_ID char(6) references tblLocations(zipCode)
-)
 
 SELECT * FROM tblUsers;
 SELECT * FROM tblLocations;
