@@ -1,13 +1,50 @@
 --DROP DATABASE miniFB
+IF OBJECT_ID('tblFriendships', 'U') IS NOT NULL 
+      drop table tblFriendships
 
+IF OBJECT_ID('tblRelationships', 'U') IS NOT NULL 
+      drop table tblRelationships
+
+IF OBJECT_ID('tblMembers', 'U') IS NOT NULL 
+      drop table tblMembers
+
+IF OBJECT_ID('tblComments', 'U') IS NOT NULL 
+      drop table tblComments
+
+IF OBJECT_ID('tblPostGroups', 'U') IS NOT NULL 
+      drop table tblPostGroups
+	  
+ IF OBJECT_ID('tblPostTags', 'U') IS NOT NULL 
+      drop table tblPostTags
+
+IF OBJECT_ID('tblGroups', 'U') IS NOT NULL 
+      drop table tblGroups
+
+IF OBJECT_ID('tblPosts', 'U') IS NOT NULL 
+      drop table tblPosts
+IF OBJECT_ID('tblTags', 'U') IS NOT NULL 
+      drop table tblTags 
+
+IF OBJECT_ID('tblCategories', 'U') IS NOT NULL 
+      drop table tblCategories 
+
+
+IF OBJECT_ID('tblPrivacy', 'U') IS NOT NULL 
+      drop table tblPrivacy
+
+IF OBJECT_ID('tblUsers', 'U') IS NOT NULL 
+      drop table tblUsers  
+
+IF OBJECT_ID('tblLocations', 'U') IS NOT NULL 
+      drop table tblLocations  
 
 --CREATE DATABASE miniFB
-use miniFB
+--use miniFB
 
 --1 create tblLocation
 IF OBJECT_ID('tblLocations','U') IS NULL
 CREATE TABLE tblLocations (
-    zipCode int not null IDENTITY(1,1) primary key,
+    zipCode char(6) not null primary key,
     city nvarchar(50),
     state nvarchar(50),
     country nvarchar(30),
@@ -24,7 +61,7 @@ CREATE TABLE tblUsers (
     phone varchar(15),
     gender char(1) CHECK (gender in (1,0)), -- 1: facet 0: kobieta można to zmienić na liste czy coś
     since datetime default CURRENT_TIMESTAMP,
-    location_ID int references tblLocations(zipCode)
+    location_ID char(6) references tblLocations(zipCode)
 )
 
 --3 create tblCategories
@@ -78,7 +115,7 @@ CREATE TABLE tblGroups (
     id int not null IDENTITY(1,1) primary key,
     title nvarchar(255),
     content NTEXT,
-    location_ID int references tblLocations(zipCode),
+    location_ID char(6) references tblLocations(zipCode),
     adminID int references tblUsers(id),
     --privacyID int references tblPosts(privacyID),
     privacyID int references tblPrivacy(id),
@@ -117,8 +154,9 @@ CREATE TABLE tblRelationships (
     id int not null IDENTITY(1,1) primary key,
     title NCHAR(80)
 )
- 
+
 --13 create tblFriendships
+
 IF OBJECT_ID('tblFriendships','U') IS NULL
 CREATE TABLE tblFriendships (
     id int not null IDENTITY(1,1) primary key,
@@ -148,8 +186,6 @@ SELECT * FROM tblPostGroups;
 
 -----------------------INSERTY
 
-INSERT INTO
-	dbo.tblLocations VALUES('Poznań','Wielkopolskie','Polska')
+-- INSERT INTO	tblLocations VALUES('63-300','Poznań','Wielkopolskie','Polska')
 
-INSERT INTO 
-	dbo.tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,1)
+--INSERT INTO tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,1)
