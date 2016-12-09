@@ -28,7 +28,6 @@ IF OBJECT_ID('tblTags', 'U') IS NOT NULL
 IF OBJECT_ID('tblCategories', 'U') IS NOT NULL 
       drop table tblCategories 
 
-
 IF OBJECT_ID('tblPrivacy', 'U') IS NOT NULL 
       drop table tblPrivacy
 
@@ -53,7 +52,7 @@ CREATE TABLE tblLocations (
 --2 Create tblUsers
 IF OBJECT_ID('tblUsers','U') IS NULL
 CREATE TABLE tblUsers (
-    id int not null IDENTITY(1,1) primary key,
+    id int IDENTITY(1,1)  primary key,
     name nvarchar(50),
     surname nvarchar(50),
     email varchar(30),
@@ -171,6 +170,33 @@ CREATE TABLE tblFriendships (
 
 
 
+
+
+----------------------- INSERTS 
+
+-- LOCATION
+INSERT INTO tblLocations VALUES('63-300','Poznań','Wielkopolskie','Polska')
+INSERT INTO tblLocations VALUES('64-300','Warszawa','Wielkopolskie','Polska')
+
+-- USERS
+INSERT INTO tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,'63-300')
+INSERT INTO tblUsers VALUES('Adam','Domagalski','adam@op.pl','1231231','1232',1,DEFAULT,'64-300')
+
+-- CATEGORIES
+
+IF OBJECT_ID('tblUsers','U') IS NULL
+CREATE TABLE tblUsers (
+    id int not null IDENTITY(1,1) primary key,
+    name nvarchar(50),
+    surname nvarchar(50),
+    email varchar(30),
+    password varchar(255),
+    phone varchar(15),
+    gender char(1) CHECK (gender in (1,0)), -- 1: facet 0: kobieta można to zmienić na liste czy coś
+    since datetime default CURRENT_TIMESTAMP,
+    location_ID char(6) references tblLocations(zipCode)
+)
+
 SELECT * FROM tblUsers;
 SELECT * FROM tblLocations;
 SELECT * FROM tblGroups;
@@ -183,9 +209,3 @@ SELECT * FROM tblMembers;
 SELECT * FROM tblRelationships;
 SELECT * FROM tblFriendships;
 SELECT * FROM tblPostGroups;
-
------------------------INSERTY
-
--- INSERT INTO	tblLocations VALUES('63-300','Poznań','Wielkopolskie','Polska')
-
---INSERT INTO tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,1)
