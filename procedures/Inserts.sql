@@ -23,16 +23,20 @@ if OBJECT_ID ('addPost', 'P') is not null
 	drop procedure addPost;
 go
 
+IF OBJECT_ID ( 'addGroup', 'P' ) IS NOT NULL
+    drop procedure addGroup;
+go
+
 --Create procedures
 CREATE PROCEDURE addCategory
-    @categorieName NVARCHAR(255)
+    @categoryName NVARCHAR(255)
 AS
 begin try
-    if exists (select * from tblCategories where title=@categorieName)
+    if exists (select * from tblCategories where title=@categoryName)
 		raiserror ('Taki projekt już istnieje', 11,1)
 	else
         begin
-			INSERT INTO tblCategories VALUES(@categorieName)
+			INSERT INTO tblCategories VALUES(@categoryName)
         end
 end try
     begin catch
@@ -67,6 +71,8 @@ AS
 begin try
     if  exists (select * from tblTags where title=@tagName)
 		raiserror ('Taki tag już istnieje', 11,1)
+	if  not exists (select * from tblCategories where id=@catId)
+		raiserror ('Taka kategoria nie istnieje', 11,1)
 	else
         begin
 		      INSERT INTO tblTags VALUES(@tagName,@catId)
@@ -77,9 +83,10 @@ begin catch
 end catch
 go
 
+
 CREATE PROCEDURE addPrivacy
-        @status NVARCHAR(MAX),
-		@description NVARCHAR(MAX)
+        @status NVARCHAR(255),
+		@description NVARCHAR(255)
 AS
 begin try
         if exists (select * from tblPrivacy where status=@status)
@@ -140,6 +147,37 @@ create proc addPost
 	end catch
 go
 
+-- the admin will be a user if has more than 10 friends
+CREATE procedure addGroup
+    @title nvarchar(MAX),
+    @content NTEXT,
+    @locationId varchar(6),
+    @adminId int,
+    @privacyID int,
+    @catId int
+	as
+	begin try
+	    declare @friendsAmount int
+	    set @friendsAmount = ( Select  COUNT(*) FROM tblFriendships WHERE senderID=@adminId)
+		print @friendsAmount
+
+		if exists ( select * from tblGroups where title=@title)
+			raiserror ('Grupa o takiej nazwie już istnieje', 11,1)
+		else if not exists ( select * from tblLocations where zipCode=@locationId)
+			raiserror ('Podana lokalizacja nie istnieje', 11,1)
+		else if not exists ( select * from tblPrivacy where id=@privacyID)
+			raiserror ('Podane ustawienie widoczności postów nie istnieje', 11,1)
+		else if (@friendsAmount <= 10)
+			raiserror ('Użytkownik ma za małą liczbę znajomych aby zostać adminem grupy', 11,1)
+		else
+			INSERT INTO tblGroups VALUES(@title,@content,@locationId,@adminId,@privacyID,@catId)
+	end try
+	begin catch
+		SELECT ERROR_MESSAGE() AS 'KOMUNIKAT'
+		return
+	end catch
+go
+
 -- Execute procedures
 exec addLoc '62-654','Leszno','Pakistan','Kantry'
 Exec addCategory "hodowla kotów"
@@ -149,3 +187,4 @@ exec addUser 'Dominika','AllahAkhbar','adam@op.pl','1231231','1232',0,'49-654'
 exec addUser 'Dominika','AllahAkhbar','horny@op.pl','1231231','1232',0,'49-654'
 exec addUser 'Dominika','AllahAkhbar','horny@op.pl','1231231','1232',0,'62-654'
 exec addPost 'Tytul Postu','Zawartosc',1,1
+exec addGroup 'fani kaczora donalda','lubimy donalda','64-300',1,1,1
