@@ -1,13 +1,49 @@
 --DROP DATABASE miniFB
+IF OBJECT_ID('tblFriendships', 'U') IS NOT NULL 
+      drop table tblFriendships
 
+IF OBJECT_ID('tblRelationships', 'U') IS NOT NULL 
+      drop table tblRelationships
+
+IF OBJECT_ID('tblMembers', 'U') IS NOT NULL 
+      drop table tblMembers
+
+IF OBJECT_ID('tblComments', 'U') IS NOT NULL 
+      drop table tblComments
+
+IF OBJECT_ID('tblPostGroups', 'U') IS NOT NULL 
+      drop table tblPostGroups
+	  
+ IF OBJECT_ID('tblPostTags', 'U') IS NOT NULL 
+      drop table tblPostTags
+
+IF OBJECT_ID('tblGroups', 'U') IS NOT NULL 
+      drop table tblGroups
+
+IF OBJECT_ID('tblPosts', 'U') IS NOT NULL 
+      drop table tblPosts
+IF OBJECT_ID('tblTags', 'U') IS NOT NULL 
+      drop table tblTags 
+
+IF OBJECT_ID('tblCategories', 'U') IS NOT NULL 
+      drop table tblCategories 
+
+IF OBJECT_ID('tblPrivacy', 'U') IS NOT NULL 
+      drop table tblPrivacy
+
+IF OBJECT_ID('tblUsers', 'U') IS NOT NULL 
+      drop table tblUsers  
+
+IF OBJECT_ID('tblLocations', 'U') IS NOT NULL 
+      drop table tblLocations  
 
 --CREATE DATABASE miniFB
-use miniFB
+--use miniFB
 
 --1 create tblLocation
 IF OBJECT_ID('tblLocations','U') IS NULL
 CREATE TABLE tblLocations (
-    zipCode int not null IDENTITY(1,1) primary key,
+    zipCode char(6) not null primary key,
     city nvarchar(50),
     state nvarchar(50),
     country nvarchar(30),
@@ -16,7 +52,7 @@ CREATE TABLE tblLocations (
 --2 Create tblUsers
 IF OBJECT_ID('tblUsers','U') IS NULL
 CREATE TABLE tblUsers (
-    id int not null IDENTITY(1,1) primary key,
+    id int IDENTITY(1,1)  primary key,
     name nvarchar(50),
     surname nvarchar(50),
     email varchar(30),
@@ -24,7 +60,7 @@ CREATE TABLE tblUsers (
     phone varchar(15),
     gender char(1) CHECK (gender in (1,0)), -- 1: facet 0: kobieta można to zmienić na liste czy coś
     since datetime default CURRENT_TIMESTAMP,
-    location_ID int references tblLocations(zipCode)
+    location_ID char(6) references tblLocations(zipCode)
 )
 
 --3 create tblCategories
@@ -47,7 +83,7 @@ CREATE TABLE tblTags (
 --5 create tblPrivacy
 IF OBJECT_ID('tblPrivacy','U') IS NULL
 CREATE TABLE tblPrivacy (
-    id int not null IDENTITY(1,1) primary key,
+    id int  IDENTITY(1,1) primary key,
     status nvarchar(255),
     description nvarchar(255)
 )
@@ -78,9 +114,8 @@ CREATE TABLE tblGroups (
     id int not null IDENTITY(1,1) primary key,
     title nvarchar(255),
     content NTEXT,
-    location_ID int references tblLocations(zipCode),
+    location_ID char(6) references tblLocations(zipCode),
     adminID int references tblUsers(id),
-    --privacyID int references tblPosts(privacyID),
     privacyID int references tblPrivacy(id),
     catID int references tblCategories(id)
 )
@@ -117,8 +152,9 @@ CREATE TABLE tblRelationships (
     id int not null IDENTITY(1,1) primary key,
     title NCHAR(80)
 )
- 
+
 --13 create tblFriendships
+
 IF OBJECT_ID('tblFriendships','U') IS NULL
 CREATE TABLE tblFriendships (
     id int not null IDENTITY(1,1) primary key,
@@ -133,6 +169,51 @@ CREATE TABLE tblFriendships (
 
 
 
+
+
+----------------------- INSERTS 
+
+-- LOCATION
+INSERT INTO tblLocations VALUES('63-300','Poznań','Wielkopolskie','Polska')
+INSERT INTO tblLocations VALUES('64-300','Warszawa','Wielkopolskie','Polska')
+
+-- USERS
+INSERT INTO tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,'63-300')
+INSERT INTO tblUsers VALUES('Adam','Domagalski','adam@op.pl','1231231','1232',1,DEFAULT,'64-300')
+
+-- CATEGORIES
+INSERT INTO tblCategories VALUES('gotowanie')
+INSERT INTO tblCategories VALUES('sprzątanie')
+
+-- TAGS
+INSERT INTO tblTags VALUES('schabowe',1)
+INSERT INTO tblTags VALUES('mop',2)
+-- Relationships
+INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie')
+ 
+-- FREINDSHIPS
+INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT)
+ 
+--PRIVACY
+ INSERT INTO tblPrivacy VALUES(1,'ALL'),(2,'FrOnly')
+
+-- GROUPS
+INSERT INTO tblGroups VALUES('fani gotowania','lubimy gotowac','64-300',1,1,1)
+
+-- POSTS
+INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);
+INSERT INTO tblPosts VALUES(DEFAULT,'Kupiłem pralkę!','Fajna ta pralka',2,2);
+
+-- Comments
+INSERT INTO tblComments VALUES(DEFAULT,1,1,'Hahahahaahaha jak on to zrobił!?'),(DEFAULT,2,2,'Za ile?')
+
+-- POSTTAGS
+INSERT INTO tblPostGroups VALUES(1,1)
+INSERT INTO tblPostGroups VALUES(1,2)
+
+-- MEMBERS
+INSERT INTO tblMembers VALUES(1,1),(2,1)
+
 SELECT * FROM tblUsers;
 SELECT * FROM tblLocations;
 SELECT * FROM tblGroups;
@@ -145,11 +226,3 @@ SELECT * FROM tblMembers;
 SELECT * FROM tblRelationships;
 SELECT * FROM tblFriendships;
 SELECT * FROM tblPostGroups;
-
------------------------INSERTY
-
-INSERT INTO
-	dbo.tblLocations VALUES('Poznań','Wielkopolskie','Polska')
-
-INSERT INTO 
-	dbo.tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,1)
