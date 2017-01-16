@@ -202,6 +202,7 @@ INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT)
 
 -- GROUPS
 INSERT INTO tblGroups VALUES('fani gotowania','lubimy gotowac','64-300',1,1,1)
+INSERT INTO tblGroups VALUES('WALL','Main MiniFb Wall','64-300',1,1,1)
 
 -- POSTS
 INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);

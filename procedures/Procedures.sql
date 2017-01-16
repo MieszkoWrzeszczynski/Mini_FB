@@ -27,6 +27,10 @@ IF OBJECT_ID ( 'addGroup', 'P' ) IS NOT NULL
     drop procedure addGroup;
 go
 
+IF OBJECT_ID ( 'addPost', 'P' ) IS NOT NULL
+    drop procedure addPost;
+go
+
 --Create procedures
 CREATE PROCEDURE addCategory
     @categorieName NVARCHAR(255)
@@ -85,11 +89,13 @@ CREATE PROCEDURE addTag
 				begin
 					set @msg = 'Podana kategoria nie istnieje: ' + cast(@catId as varchar(max))+' w bazie'
 					raiserror (@msg, 11,1)
+					return
 				end
 		else
 			begin
 				set @msg = 'Tag "' + cast(@tagName as varchar(max))+'" już istnieje w bazie'
 				raiserror (@msg, 11,1)
+				return
 			end
 		return
 	end try
@@ -154,7 +160,8 @@ create proc addPost
     @title nvarchar(255),
     @content NTEXT,
     @authorID int, --references tblUsers(id),
-    @privacyID int --references tblPrivacy(id)
+    @privacyID int, --references tblPrivacy(id)
+	@groupTitle nvarchar(255) = 'WALL'
 	as
 	begin try
 		declare @msg varchar(max)
@@ -179,6 +186,49 @@ create proc addPost
 	end try
 	begin catch
 		select ERROR_MESSAGE() as 'Komunikat addPost'
+	end catch
+go
+
+create procedure addComments
+	@pID int,
+	@uID int,
+	@cont nvarchar(max)
+	as
+	begin try
+		declare @msg varchar(max)
+		if @pID in (select id from tblPosts)
+			begin					
+				if @uID in (select id from tblUsers)
+					begin
+						insert into tblComments values (DEFAULT,@pID,@uID,@cont);
+					end				
+				else
+					begin
+						set @msg = 'Uzytkownik z id: '+cast(@uID as varchar(max))+' nie istnieje'
+						raiserror(@msg,1,1)
+						return
+					end
+			end
+		else
+			begin
+					set @msg = 'Post z id: '+cast(@pID as varchar(max))+' nie istnieje'
+					raiserror(@msg,1,1)
+					return
+			end
+
+
+
+
+
+
+
+
+
+
+		
+	end try
+	begin catch
+		select ERROR_MESSAGE() as 'Komunikat addComments'
 	end catch
 go
 
@@ -245,3 +295,9 @@ exec addPost 'Tytul Postu3','Zawartosc3',1,1
 
 --addGroup check
 exec addGroup 'fani kaczora donalda','lubimy donalda','64-300',1,1,1
+
+
+--addPost check
+exec addComments 1,1,'Komentarz wprowadzony z klawiatury'
+exec addComments 4000,1,'Komentarz wprowadzony z klawiatury'
+exec addComments 1,4000,'Komentarz wprowadzony z klawiatury'
