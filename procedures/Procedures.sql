@@ -1,4 +1,4 @@
-﻿--Flush procedures
+--Flush procedures
 IF OBJECT_ID ( 'addLoc', 'P' ) IS NOT NULL
     drop procedure addLoc;
 go
