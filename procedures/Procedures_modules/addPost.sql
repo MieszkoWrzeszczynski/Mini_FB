@@ -16,7 +16,15 @@ create procedure addPost
 			begin
 				if @privacyID in (select id from tblPrivacy)
 					begin
-						insert into tblPosts values (DEFAULT,@title,@content,@authorID,@privacyID);
+						insert into tblPosts values (DEFAULT,@title,@content,@authorID,@privacyID)
+						
+						DECLARE @ObjectID int
+						SET @ObjectID = SCOPE_IDENTITY()
+
+						DECLARE @gID int
+						SET @gID = (select id from tblGroups where title=@groupTitle)
+						
+						insert into tblPostGroups values (@gID,@ObjectID)		
 					end
 				else
 					begin
@@ -38,5 +46,7 @@ go
 
 -- addPost check
 exec addPost 'Tytul Postu1','Zawartosc1',786,1
-exec addPost 'Tytul Postu1','Zawartosc2',1,654
+exec addPost 'Tytul Postu2','Zawartosc2',1,654
 exec addPost 'Tytul Postu3','Zawartosc3',1,1
+exec addPost 'Tytul Postu4','Zawartosc4',2,2,'fani gotowania'
+

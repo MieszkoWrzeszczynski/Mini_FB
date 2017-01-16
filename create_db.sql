@@ -222,6 +222,8 @@ INSERT INTO tblComments VALUES(DEFAULT,1,1,'O matko!'),(DEFAULT,1,1,'Widzisz to 
 INSERT INTO tblPostGroups VALUES(1,1)
 INSERT INTO tblPostGroups VALUES(1,2)
 
+select * from tblPostGroups
+
 -- MEMBERS
 INSERT INTO tblMembers VALUES(1,1),(2,1)
 
