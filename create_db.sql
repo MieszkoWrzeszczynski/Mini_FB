@@ -192,10 +192,11 @@ INSERT INTO tblCategories VALUES('sprzątanie')
 INSERT INTO tblTags VALUES('schabowe',1)
 INSERT INTO tblTags VALUES('mop',2)
 -- Relationships
-INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie')
+INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie'),('Byli znajomi')
 
 -- FREINDSHIPS
 INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT)
+INSERT INTO tblFriendships VALUES(1,3,0,1,1,DEFAULT)
 
 --PRIVACY
  INSERT INTO tblPrivacy VALUES(1,'ALL'),(2,'FrOnly')
