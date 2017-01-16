@@ -208,6 +208,10 @@ INSERT INTO tblGroups VALUES('WALL','Main MiniFb Wall','64-300',1,1,1)
 INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);
 INSERT INTO tblPosts VALUES(DEFAULT,'Kupiłem pralkę!','Fajna ta pralka',2,2);
 
+-- POSTTAGS
+INSERT INTO tblPostTags VALUES(1,1)
+INSERT INTO tblPostTags VALUES(1,2)
+
 -- Comments
 INSERT INTO tblComments VALUES(DEFAULT,1,1,'Hahahahaahaha jak on to zrobił!?'),(DEFAULT,2,2,'Za ile?')
 
@@ -225,6 +229,7 @@ SELECT * FROM tblPrivacy;
 SELECT * FROM tblCategories;
 SELECT * FROM tblTags;
 SELECT * FROM tblPosts;
+SELECT * FROM tblPostTags;
 SELECT * FROM tblComments;
 SELECT * FROM tblMembers;
 SELECT * FROM tblRelationships;
