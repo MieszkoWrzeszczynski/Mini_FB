@@ -27,8 +27,8 @@ IF OBJECT_ID ( 'addGroup', 'P' ) IS NOT NULL
     drop procedure addGroup;
 go
 
-IF OBJECT_ID ( 'addPost', 'P' ) IS NOT NULL
-    drop procedure addPost;
+IF OBJECT_ID ( 'addComment', 'P' ) IS NOT NULL
+    drop procedure addComment;
 go
 
 --Create procedures
@@ -161,6 +161,7 @@ create proc addPost
     @content NTEXT,
     @authorID int, --references tblUsers(id),
     @privacyID int, --references tblPrivacy(id)
+	@id int = NULL,
 	@groupTitle nvarchar(255) = 'WALL'
 	as
 	begin try
@@ -169,7 +170,18 @@ create proc addPost
 			begin
 				if @privacyID in (select id from tblPrivacy)
 					begin
-						insert into tblPosts values (DEFAULT,@title,@content,@authorID,@privacyID);
+						insert into tblPosts values (DEFAULT,@title,@content,@authorID,@privacyID)
+						--BKLAAAAAAAAAAAAAAAAAAAAAAAAAAD
+						if @groupTitle in (select title from tblGroups)
+							begin
+								insert into tblPostGroups values ((select id from tblGroups where title=@title),@id)
+							end
+						else
+							begin
+								set @msg = 'Group: ' + @groupTitle+' nie istnieje'
+								raiserror(@msg,1,1)
+							end
+							
 					end
 				else
 					begin
@@ -189,7 +201,7 @@ create proc addPost
 	end catch
 go
 
-create procedure addComments
+create procedure addComment
 	@pID int,
 	@uID int,
 	@cont nvarchar(max)
@@ -200,7 +212,7 @@ create procedure addComments
 			begin					
 				if @uID in (select id from tblUsers)
 					begin
-						insert into tblComments values (DEFAULT,@pID,@uID,@cont);
+						insert into tblComments values (DEFAULT,@pID,@uID,@cont)
 					end				
 				else
 					begin
@@ -215,17 +227,6 @@ create procedure addComments
 					raiserror(@msg,1,1)
 					return
 			end
-
-
-
-
-
-
-
-
-
-
-		
 	end try
 	begin catch
 		select ERROR_MESSAGE() as 'Komunikat addComments'
@@ -291,13 +292,13 @@ exec addUser 'Dominika','AllahAkhbar','hmery@op.pl','1231231','1232',0,'62-654'
 -- addPost check
 exec addPost 'Tytul Postu1','Zawartosc1',786,1
 exec addPost 'Tytul Postu1','Zawartosc2',1,654
-exec addPost 'Tytul Postu3','Zawartosc3',1,1
+exec addPost 'Tytul Postu3','Zawartosc3',1,1,DEFAULT,DEFAULT
 
 --addGroup check
 exec addGroup 'fani kaczora donalda','lubimy donalda','64-300',1,1,1
 
 
 --addPost check
-exec addComments 1,1,'Komentarz wprowadzony z klawiatury'
-exec addComments 4000,1,'Komentarz wprowadzony z klawiatury'
-exec addComments 1,4000,'Komentarz wprowadzony z klawiatury'
+exec addComment 1,1,'Komentarz wprowadzony z klawiatury'
+exec addComment 4000,1,'Komentarz wprowadzony z klawiatury'
+exec addComment 1,4000,'Komentarz wprowadzony z klawiatury'
