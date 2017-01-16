@@ -1,41 +1,41 @@
 --DROP DATABASE miniFB
-IF OBJECT_ID('tblFriendships', 'U') IS NOT NULL 
+IF OBJECT_ID('tblFriendships', 'U') IS NOT NULL
       drop table tblFriendships
 
-IF OBJECT_ID('tblRelationships', 'U') IS NOT NULL 
+IF OBJECT_ID('tblRelationships', 'U') IS NOT NULL
       drop table tblRelationships
 
-IF OBJECT_ID('tblMembers', 'U') IS NOT NULL 
+IF OBJECT_ID('tblMembers', 'U') IS NOT NULL
       drop table tblMembers
 
-IF OBJECT_ID('tblComments', 'U') IS NOT NULL 
+IF OBJECT_ID('tblComments', 'U') IS NOT NULL
       drop table tblComments
 
-IF OBJECT_ID('tblPostGroups', 'U') IS NOT NULL 
+IF OBJECT_ID('tblPostGroups', 'U') IS NOT NULL
       drop table tblPostGroups
-	  
- IF OBJECT_ID('tblPostTags', 'U') IS NOT NULL 
+
+ IF OBJECT_ID('tblPostTags', 'U') IS NOT NULL
       drop table tblPostTags
 
-IF OBJECT_ID('tblGroups', 'U') IS NOT NULL 
+IF OBJECT_ID('tblGroups', 'U') IS NOT NULL
       drop table tblGroups
 
-IF OBJECT_ID('tblPosts', 'U') IS NOT NULL 
+IF OBJECT_ID('tblPosts', 'U') IS NOT NULL
       drop table tblPosts
-IF OBJECT_ID('tblTags', 'U') IS NOT NULL 
-      drop table tblTags 
+IF OBJECT_ID('tblTags', 'U') IS NOT NULL
+      drop table tblTags
 
-IF OBJECT_ID('tblCategories', 'U') IS NOT NULL 
-      drop table tblCategories 
+IF OBJECT_ID('tblCategories', 'U') IS NOT NULL
+      drop table tblCategories
 
-IF OBJECT_ID('tblPrivacy', 'U') IS NOT NULL 
+IF OBJECT_ID('tblPrivacy', 'U') IS NOT NULL
       drop table tblPrivacy
 
-IF OBJECT_ID('tblUsers', 'U') IS NOT NULL 
-      drop table tblUsers  
+IF OBJECT_ID('tblUsers', 'U') IS NOT NULL
+      drop table tblUsers
 
-IF OBJECT_ID('tblLocations', 'U') IS NOT NULL 
-      drop table tblLocations  
+IF OBJECT_ID('tblLocations', 'U') IS NOT NULL
+      drop table tblLocations
 
 --CREATE DATABASE miniFB
 --use miniFB
@@ -79,7 +79,7 @@ CREATE TABLE tblTags (
 )
 
 
- 
+
 --5 create tblPrivacy
 IF OBJECT_ID('tblPrivacy','U') IS NULL
 CREATE TABLE tblPrivacy (
@@ -171,7 +171,7 @@ CREATE TABLE tblFriendships (
 
 
 
------------------------ INSERTS 
+----------------------- INSERTS
 
 -- LOCATION
 INSERT INTO tblLocations VALUES('63-300','Poznań','Wielkopolskie','Polska')
@@ -193,16 +193,17 @@ INSERT INTO tblTags VALUES('schabowe',1)
 INSERT INTO tblTags VALUES('mop',2)
 -- Relationships
 INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie')
- 
+
 -- FREINDSHIPS
 INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT)
- 
+
 --PRIVACY
  INSERT INTO tblPrivacy VALUES(1,'ALL'),(2,'FrOnly')
 
 -- GROUPS
 INSERT INTO tblGroups VALUES('fani gotowania','lubimy gotowac','64-300',1,1,1)
 INSERT INTO tblGroups VALUES('WALL','Main MiniFb Wall','64-300',1,1,1)
+INSERT INTO tblGroups VALUES('fani sprzątania','Main MiniFb Wall','64-300',2,1,1)
 
 -- POSTS
 INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);
@@ -214,6 +215,7 @@ INSERT INTO tblPostTags VALUES(1,2)
 
 -- Comments
 INSERT INTO tblComments VALUES(DEFAULT,1,1,'Hahahahaahaha jak on to zrobił!?'),(DEFAULT,2,2,'Za ile?')
+INSERT INTO tblComments VALUES(DEFAULT,1,1,'O matko!'),(DEFAULT,1,1,'Widzisz to Helena?!')
 
 -- POSTTAGS
 INSERT INTO tblPostGroups VALUES(1,1)
