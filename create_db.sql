@@ -175,13 +175,16 @@ CREATE TABLE tblFriendships (
 
 -- LOCATION
 INSERT INTO tblLocations VALUES('63-300','Poznań','Wielkopolskie','Polska')
-INSERT INTO tblLocations VALUES('64-300','Warszawa','Wielkopolskie','Polska')
+INSERT INTO tblLocations VALUES('64-300','Warszawa','Mazowieckie','Polska'),('66-400','Gorzów Wlkp.','Lubuskie','Polska')
 
 -- USERS
 INSERT INTO tblUsers VALUES('Mieszko','Wrzeszczyński','mieszkobor@op.pl','1231231asadsad','123123123',1,DEFAULT,'63-300')
-INSERT INTO tblUsers VALUES('Adam','Domagalski','adam@op.pl','1231231','1232',1,DEFAULT,'64-300')
+INSERT INTO tblUsers VALUES('Adam','Domagalski','adam@op.pl','1231231','1232',1,DEFAULT,'66-400')
+INSERT INTO tblUsers VALUES('Filip','Hajzer','synzygmunta@wp.pl','hasuo','693258741',1,DEFAULT,'64-300'),('Krystyna','Czubówna','lubiegadac@gmail.com','zwierzaczkipolaczki','987546321',0,DEFAULT,'64-300')
+
 
 -- CATEGORIES
+
 INSERT INTO tblCategories VALUES('gotowanie')
 INSERT INTO tblCategories VALUES('sprzątanie')
 
