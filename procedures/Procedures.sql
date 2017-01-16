@@ -27,9 +27,18 @@ IF OBJECT_ID ( 'addGroup', 'P' ) IS NOT NULL
     drop procedure addGroup;
 go
 
+IF OBJECT_ID ( 'addMember', 'P' ) IS NOT NULL
+    drop procedure addMember;
+go
+
 IF OBJECT_ID ( 'addPost', 'P' ) IS NOT NULL
     drop procedure addPost;
 go
+
+IF OBJECT_ID ( 'addPostTag', 'P' ) IS NOT NULL
+    drop procedure addPostTag;
+go
+
 
 --Create procedures
 CREATE PROCEDURE addCategory
@@ -101,6 +110,34 @@ CREATE PROCEDURE addTag
 	end try
 	begin catch
          SELECT ERROR_MESSAGE() AS 'KOMUNIKAT addTag'
+	end catch
+go
+
+
+--add PostTag
+create proc addPostTag
+    @new_postId int,
+	@new_tagId int
+	as
+	begin try
+	   	declare @postIdToCheck int
+	    set @postIdToCheck = (Select id FROM tblPosts WHERE id=@new_postId)
+
+		declare @tagIdToCheck int
+	    set @tagIdToCheck = (Select id FROM tblTags WHERE id=@new_tagId)
+
+		if @postIdToCheck is NULL
+			raiserror ('Post o takim id nie istnieje', 11,1)
+		else if @tagIdToCheck is NULL
+			raiserror ('Podany tag nie istnieje', 11,1)
+		else if exists (Select id FROM tblPostTags WHERE tagID=@new_tagId)
+			raiserror ('Podany tag już istnieje w bazie', 11,1)
+		else
+			INSERT INTO tblPostTags VALUES(@new_postId,@new_tagId)
+	end try
+	begin catch
+		SELECT ERROR_MESSAGE() AS 'KOMUNIKAT addPostTags'
+		return
 	end catch
 go
 
@@ -263,6 +300,36 @@ create procedure addGroup
 	end catch
 go
 
+-- add Member
+create procedure addMember
+    @groupName nvarchar(MAX),
+    @email nvarchar(MAX)
+	as
+	begin try
+	    declare @groupID int
+	    set @groupID = (Select id FROM tblGroups WHERE title=@groupName)
+
+		declare @userID int
+	    set @userID = (Select id FROM tblUsers WHERE email=@email)
+
+
+		if @groupID IS NULL
+			raiserror ('Grupa o takiej nazwie nie istnieje', 11,1)
+		else if @userID IS NULL
+			raiserror ('Użytkownik o takiej nazwie nie istnieje', 11,1)
+		else if exists (Select * FROM tblMembers WHERE memberID=@userID)
+			raiserror ('Użytkownik o takiej nazwie już został dodany do grupy', 11,1)
+		else
+			INSERT INTO tblMembers VALUES(@userID,@groupID)
+	end try
+	begin catch
+		SELECT ERROR_MESSAGE() AS 'KOMUNIKAT addMember'
+		return
+	end catch
+go
+
+
+
 
 -- Execute procedures
 
@@ -301,3 +368,15 @@ exec addGroup 'fani kaczora donalda','lubimy donalda','64-300',1,1,1
 exec addComments 1,1,'Komentarz wprowadzony z klawiatury'
 exec addComments 4000,1,'Komentarz wprowadzony z klawiatury'
 exec addComments 1,4000,'Komentarz wprowadzony z klawiatury'
+
+--addMember check
+exec addMember 'fani gotowania','adam@op.pl'
+exec addMember 'fani gotowan1ia','adam@op.pl'
+exec addMember 'fani gotowania','adam@o1p.pl'
+
+-- addPostTag
+exec addPostTag 100,1
+exec addPostTag 1,10
+exec addPostTag 1,1
+
+-- to do : spytaj anki czy return musi byc po raise error w procedurze
