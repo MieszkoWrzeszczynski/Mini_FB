@@ -4,27 +4,47 @@ go
 
 create trigger checkEmail
 on tblUsers
-for update
-as
-			IF EXISTS
-			( select u.email
-			FROM tblUsers u, inserted i
-			Where u.email = i.email
-			)
-	
-			begin
-			print('Taki email istnieje już w bazie');
-			rollback
-			--Update tblUsers
-			--set email = d.email
-			--FROM deleted d
-			--where d.id = tblUsers.id
-
+after update
+as begin
+	if update(email)
+		begin
+			if exists(
+				select *
+				from tblUsers u INNER JOIN Inserted i
+				on u.email = i.email
+				where u.id <> i.id
+				)
+				begin
+					print('Podany mail jest już zajęty')
+					rollback
+					
+				end
+			else if exists(
+				select *
+				from deleted u INNER JOIN Inserted i
+				on u.email = i.email
+				where u.id = i.id
+				)
+				begin
+					print('Podałeś ten sam adres mail')
+					rollback
+					
+				end
+			else
+				print('Mail został zmieniony')
+					
 		end
+	end
 go
 
 
 -- execute
 Select * FROM  tblUsers
-UPDATE tblUsers SET email = 'synzyaagmu1nta@op.pl'  WHERE id = 4
+
+UPDATE tblUsers SET email = 'adam@op.pl'  WHERE id = 2
+UPDATE tblUsers SET email = 'adam@op.pl'  WHERE id = 3
+UPDATE tblUsers SET email = 'nowymail@op.pl'  WHERE id = 2
+
+
+
 Select * FROM  tblUsers
