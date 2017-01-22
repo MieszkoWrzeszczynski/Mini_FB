@@ -14,7 +14,7 @@ begin try
 		end
 	else
         begin
-			declare @msg varchar(max) 
+			declare @msg varchar(max)
 			set @msg = 'Kategoria "' + cast(@categorieName as varchar(max))+'" już istnieje'
 			raiserror (@msg, 11,1)
 			return
