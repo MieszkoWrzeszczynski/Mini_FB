@@ -97,7 +97,8 @@ CREATE TABLE tblPosts (
     title nvarchar(255),
     content NTEXT,
     authorID int references tblUsers(id),
-    privacyID int references tblPrivacy(id)
+    privacyID int references tblPrivacy(id),
+
 )
 
 --7 create tblPostTags
@@ -132,7 +133,7 @@ CREATE TABLE tblPostGroups (
 IF OBJECT_ID('tblComments','U') IS NULL
 CREATE TABLE tblComments (
     id int not null IDENTITY(1,1) primary key,
-    date datetime default CURRENT_TIMESTAMP,
+    date  DATETIME NOT NULL DEFAULT(GETDATE()),
     postID int references tblPosts(id),
     authorID int references tblUsers(id),
     content NTEXT
@@ -212,7 +213,7 @@ INSERT INTO tblPosts VALUES(DEFAULT,'Kupiłem pralkę!','Fajna ta pralka',2,2);
 
 -- POSTTAGS
 INSERT INTO tblPostTags VALUES(1,1)
-INSERT INTO tblPostTags VALUES(1,2)
+INSERT INTO tblPostTags VALUES(2,2)
 
 -- Comments
 INSERT INTO tblComments VALUES(DEFAULT,1,1,'Hahahahaahaha jak on to zrobił!?'),(DEFAULT,2,2,'Za ile?')
