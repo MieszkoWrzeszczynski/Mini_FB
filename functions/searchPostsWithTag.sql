@@ -23,4 +23,5 @@ end
 go
 
 -- wywolanie:
-select * from searchPostsWithTag('mop')
+select * from searchPostsWithTag('zupa')
+select * from searchPostsWithTag('C++')

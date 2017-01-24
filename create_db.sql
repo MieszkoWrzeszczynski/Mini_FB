@@ -227,10 +227,13 @@ INSERT INTO tblGroups VALUES('fani sprzątania','Daj mi tego mopa Janusz!!!','64
 -- POSTS
 INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);
 INSERT INTO tblPosts VALUES(DEFAULT,'Kupiłem pralkę!','Fajna ta pralka',2,2);
+INSERT INTO tblPosts VALUES(DEFAULT,'C++','Hi guys! How to concatenate strings in C++?',6,2);
 
 -- POSTTAGS
 INSERT INTO tblPostTags VALUES(1,1)
 INSERT INTO tblPostTags VALUES(2,2)
+INSERT INTO tblPostTags VALUES(3,15)
+
 
 -- Comments
 INSERT INTO tblComments VALUES(DEFAULT,1,1,'Hahahahaahaha jak on to zrobił!?'),(DEFAULT,2,2,'Za ile?')
