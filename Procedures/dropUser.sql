@@ -23,7 +23,7 @@ end try
     end catch
 go
 
---dropCat check
+--dropUser check
 exec addUser 'Dominika','AllahAkhbar','adam1@op.pl','1231231','1232',0,'49-654'
 
 SELECT * FROM tblUsers

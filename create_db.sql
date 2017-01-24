@@ -169,9 +169,6 @@ CREATE TABLE tblFriendships (
 
 
 
-
-
-
 ----------------------- INSERTS
 
 -- LOCATION
@@ -185,7 +182,6 @@ INSERT INTO tblUsers VALUES('Filip','Hajzer','synzygmunta@wp.pl','hasuo','693258
 
 
 -- CATEGORIES
-
 INSERT INTO tblCategories VALUES('gotowanie')
 INSERT INTO tblCategories VALUES('sprzątanie')
 
@@ -193,7 +189,7 @@ INSERT INTO tblCategories VALUES('sprzątanie')
 INSERT INTO tblTags VALUES('schabowe',1)
 INSERT INTO tblTags VALUES('mop',2)
 -- Relationships
-INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie'),('Byli znajomi')
+INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie'),('Byli znajomi'),('Żona'),('Brat')
 
 -- FREINDSHIPS
 INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT)
@@ -223,8 +219,6 @@ INSERT INTO tblComments VALUES(DEFAULT,1,1,'O matko!'),(DEFAULT,1,1,'Widzisz to 
 -- POSTTAGS
 INSERT INTO tblPostGroups VALUES(1,1)
 INSERT INTO tblPostGroups VALUES(1,2)
-
-select * from tblPostGroups
 
 -- MEMBERS
 INSERT INTO tblMembers VALUES(1,1),(2,1)
