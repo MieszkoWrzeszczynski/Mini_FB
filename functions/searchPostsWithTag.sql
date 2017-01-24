@@ -10,7 +10,7 @@ create function searchPostsWithTag
 as
 begin
         declare @tagID int
-		set @tagID = (select id from tblTags WHERE title = @tag)
+		set @tagID in (select id from tblTags WHERE title = @tag)
 
 		declare @postsID int
         set @postsID = (select postID from tblPostTags where tagID in (@tagID))
