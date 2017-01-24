@@ -9,7 +9,7 @@ create function searchGroupWithCategory
 as
 begin
         declare @catID int
-		set @catID = (select id from tblCategories WHERE title = @category)
+		set @catID in (select id from tblCategories WHERE title = @category)
 
 		insert into @Groups
         select id, title, content from tblGroups where catID in (@catID)
