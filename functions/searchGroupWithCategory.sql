@@ -9,7 +9,7 @@ create function searchGroupWithCategory
 as
 begin
         declare @catID int
-		set @catID in (select id from tblCategories WHERE title = @category)
+		set @catID = (select id from tblCategories WHERE title = @category)
 
 		insert into @Groups
         select id, title, content from tblGroups where catID in (@catID)
@@ -19,5 +19,5 @@ end
 go
 
 -- wywolanie:
-select * from searchGroupWithCategory('sprzątanie')
-select * from searchGroupWithCategory('gotowanie')
+select * from searchGroupWithCategory('kuchnia')
+select * from searchGroupWithCategory('motoryzacja')

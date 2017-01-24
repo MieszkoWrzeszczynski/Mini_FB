@@ -2,7 +2,6 @@ IF object_id(N'searchPostsWithTag', N'TF') IS NOT NULL
     DROP FUNCTION searchPostsWithTag
 GO
 
-
 create function searchPostsWithTag
         (@tag varchar(MAX))
         returns @posts table
@@ -10,7 +9,7 @@ create function searchPostsWithTag
 as
 begin
         declare @tagID int
-		set @tagID in (select id from tblTags WHERE title = @tag)
+		set @tagID = (select id from tblTags WHERE title = @tag)
 
 		declare @postsID int
         set @postsID = (select postID from tblPostTags where tagID in (@tagID))

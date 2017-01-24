@@ -212,7 +212,8 @@ INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie'),('Byli znajomi')
 INSERT INTO tblRelationships VALUES('Konfident'),('Znajomy którego nie widziałem na oczy xD'),('Współlokator syfiarz')
 -- FREINDSHIPS
 INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT),(1,3,0,1,1,DEFAULT),(1,4,0,1,1,DEFAULT),(1,5,0,1,1,DEFAULT),(1,6,0,1,1,DEFAULT),(1,7,0,1,1,DEFAULT),(1,8,0,1,1,DEFAULT),(1,9,0,1,1,DEFAULT),(1,10,0,1,1,DEFAULT),(1,11,0,1,1,DEFAULT)
-INSERT INTO tblFriendships VALUES(2,3,0,1,1,DEFAULT),(2,3,0,1,1,DEFAULT),(3,5,0,1,1,DEFAULT),(3,7,0,1,1,DEFAULT),(7,4,0,1,1,DEFAULT),(11,3,0,1,1,DEFAULT),(12,3,0,1,1,DEFAULT)
+INSERT INTO tblFriendships VALUES(2,3,0,1,1,DEFAULT),(2,4,0,1,1,DEFAULT),(2,5,0,1,1,DEFAULT),(2,6,0,1,1,DEFAULT),(2,7,0,1,1,DEFAULT),(2,8,0,1,1,DEFAULT),(2,9,0,1,1,DEFAULT),(2,10,0,1,1,DEFAULT),(11,2,0,1,1,DEFAULT),(12,2,0,1,1,DEFAULT)
+
 
 
 --PRIVACY
@@ -220,9 +221,9 @@ INSERT INTO tblFriendships VALUES(2,3,0,1,1,DEFAULT),(2,3,0,1,1,DEFAULT),(3,5,0,
 
 -- GROUPS
 INSERT INTO tblGroups VALUES('fani gotowania','lubimy gotowac','64-300',1,1,1)
-INSERT INTO tblGroups VALUES('WALL','Main MiniFb Wall','64-300',1,1,1)
-INSERT INTO tblGroups VALUES('fani sprzątania','Main MiniFb Wall','64-300',2,1,2)
-INSERT INTO tblGroups VALUES('fani sprzątania','Daj mi tego mopa Janusz!!!','64-300',1,1,2)
+INSERT INTO tblGroups VALUES('WALL','Main MiniFb Wall Schabowe z kostki rosołowej wg przepisu Babci Jadzi','64-300',1,1,1)
+INSERT INTO tblGroups VALUES('fani szybkiej jazdy','Main MiniFb Wall sprzedam opla','64-300',2,1,2)
+INSERT INTO tblGroups VALUES('fani oldskulu','Mercendes benz z 1983roku!!!','64-300',1,1,2)
 
 -- POSTS
 INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);
