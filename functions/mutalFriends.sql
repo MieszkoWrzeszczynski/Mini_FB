@@ -6,34 +6,50 @@ create function mutalFriends(@usr1 int, @usr2 int)
 as
 begin
 
-	--declare @usr1 int, @usr2 int
-	--set @usr1 = 1
-	--set @usr2 = 2
-
 	insert into @arr
-	select u.id, u.name, u.surname from tblUsers u
-	where id in (
-					select t.id from (
-								select A.receiver as 'id'
-								from tblFriendships A where A.senderID=@usr1
-								union
-								select B.senderID
-								from tblFriendships B where B.receiver=@usr1
-								union
-								select A.receiver
-								from tblFriendships A where A.senderID=@usr2
-								union
-								select B.senderID
-								from tblFriendships B where B.receiver=@usr2
-							) as t where t.id not in (@usr1,@usr2)
+	select id,name,surname
+	from tblUsers
+	where id in	
+				(
+				select receiver 
+				from tblFriendships
+				where senderID=@usr1
+				union
+				select senderID 
+				from tblFriendships
+				where receiver=@usr1
 				)
+			and
+		id in
+				(
+				select receiver 
+				from tblFriendships
+				where senderID=@usr2
+				union
+				select senderID 
+				from tblFriendships
+				where receiver=@usr2
+				)
+
 return
 end
 go
 
---select * from mutalFriends(1,2)
+--1 check
+select * from mutalFriends(2,1)
 
---select * from mutalFriends(2,1)
+select * from mutalFriends(2,1)
 
-select * from mutalFriends(12,17)
+--2 check
+select * from mutalFriends(1,11)
+select * from mutalFriends(11,2)
+
+--3 should be epty
+select * from mutalFriends(13,11)
+
+--All your freinds
+select * from mutalFriends(1,1)
+
+
+
 
