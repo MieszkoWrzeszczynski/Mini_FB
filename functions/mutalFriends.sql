@@ -1,47 +1,39 @@
 IF object_id(N'mutalFriends', N'TF') IS NOT NULL
     DROP FUNCTION mutalFriends
-GO
-
-create function mutalFriends(@friendOne int, @friendTwo int)
-	returns @arr table( imie nvarchar(50), nazwisko nvarchar(50))
+go
+create function mutalFriends(@usr1 int, @usr2 int)
+	returns @arr table( id int, imie nvarchar(50), nazwisko nvarchar(50))
 as
 begin
 
-	
-
-(select A.senderID as 'AS', A.receiver as 'AR' from tblFriendships A
-where A.senderID=2 or A.receiver=2 or A.senderID=1 or A.receiver=1)
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	declare @i int
-	declare kur1 scroll cursor for (select id from tblFriendships where senderID=2 or receiver=2)
-	open kur1
-	fetch next from kur1 into @i
-	while @@FETCH_STATUS=0
-		begin
-			print @i
-		fetch next from kur1 into @i
-		end
-	close kur1
-	deallocate kur1 
-	*/
-
-
-
-
-
-
-
+	--declare @usr1 int, @usr2 int
+	--set @usr1 = 1
+	--set @usr2 = 2
 
 	insert into @arr
-	select * from tblCategories--tmp
-
+	select u.id, u.name, u.surname from tblUsers u
+	where id in (
+					select t.id from (
+								select A.receiver as 'id'
+								from tblFriendships A where A.senderID=@usr1
+								union
+								select B.senderID
+								from tblFriendships B where B.receiver=@usr1
+								union
+								select A.receiver
+								from tblFriendships A where A.senderID=@usr2
+								union
+								select B.senderID
+								from tblFriendships B where B.receiver=@usr2
+							) as t where t.id not in (@usr1,@usr2)
+				)
 return
 end
+go
+
+--select * from mutalFriends(1,2)
+
+--select * from mutalFriends(2,1)
+
+select * from mutalFriends(12,17)
+
