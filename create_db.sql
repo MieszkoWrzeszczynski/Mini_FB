@@ -221,20 +221,21 @@ INSERT INTO tblFriendships VALUES(2,3,0,1,1,DEFAULT),(2,4,0,1,1,DEFAULT),(2,5,0,
 
 -- GROUPS
 INSERT INTO tblGroups VALUES('fani gotowania','lubimy gotowac','64-300',1,1,1)
-INSERT INTO tblGroups VALUES('WALL','Main MiniFb Wall Schabowe z kostki rosołowej wg przepisu Babci Jadzi','64-300',1,1,1)
-INSERT INTO tblGroups VALUES('fani szybkiej jazdy','Main MiniFb Wall sprzedam opla','64-300',2,1,2)
+INSERT INTO tblGroups VALUES('WALL','Schabowe z kostki rosołowej wg przepisu Babci Jadzi','64-300',1,1,1)
+INSERT INTO tblGroups VALUES('fani szybkiej jazdy','sprzedam opla','64-300',2,1,2)
 INSERT INTO tblGroups VALUES('fani oldskulu','Mercendes benz z 1983roku!!!','64-300',1,1,2)
 
 -- POSTS
-INSERT INTO tblPosts VALUES(DEFAULT,'Byłem wczoraj na dworze!','Ale było fajnie!',1,1);
+INSERT INTO tblPosts VALUES(DEFAULT,'Pyszna zupa','Uwielbiam jarzynową zupkę',1,1);
 INSERT INTO tblPosts VALUES(DEFAULT,'Kupiłem pralkę!','Fajna ta pralka',2,2);
 INSERT INTO tblPosts VALUES(DEFAULT,'C++','Hi guys! How to concatenate strings in C++?',6,2);
+INSERT INTO tblPosts VALUES(DEFAULT,'C++','Hi guys! How to convert int to string',6,2);
 
 -- POSTTAGS
 INSERT INTO tblPostTags VALUES(1,1)
 INSERT INTO tblPostTags VALUES(2,2)
 INSERT INTO tblPostTags VALUES(3,15)
-
+INSERT INTO tblPostTags VALUES(4,15)
 
 -- Comments
 INSERT INTO tblComments VALUES(DEFAULT,1,1,'Hahahahaahaha jak on to zrobił!?'),(DEFAULT,2,2,'Za ile?')
