@@ -31,7 +31,7 @@ go
 
 --blockUser check
 exec blockUser 'mieszko1bor@op.pl','adam@op.pl'
-SELECT * FROM tblFriendships
+SELECT * FROM tblFriendships where id = 1
 
 exec blockUser 'mieszkobor@op.pl','adam@op.pl'
-SELECT * FROM tblFriendships
+SELECT * FROM tblFriendships  where id = 1

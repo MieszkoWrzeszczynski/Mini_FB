@@ -24,7 +24,7 @@ end try
 go
 
 --dropUser check
-exec addUser 'Dominika','AllahAkhbar','adam1@op.pl','1231231','1232',0,'49-654'
+exec addUser 'Dominika','AllahAkhbar','adam1@op.pl','1231231','1232',0,'63-300'
 
 SELECT * FROM tblUsers
 
@@ -33,9 +33,3 @@ exec dropUser 'adam1@op.pl'
 SELECT * FROM tblUsers
 
 exec dropUser 'adam1@op.pl'
-
-
-
-
-
-

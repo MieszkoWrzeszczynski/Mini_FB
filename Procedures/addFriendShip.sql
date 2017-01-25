@@ -9,6 +9,8 @@ create procedure addFriendShip
 	@relationID int
 	as
 	begin try
+		if(@receiverID = @senderID)
+			raiserror ('Znajomość ze sobą samym jest zabroniona', 11,1)
 		if not exists (Select * FROM tblUsers WHERE id = @senderID)
 			raiserror ('Osoba zapraszająca nie istnieje w bazie danych', 11,1)
 		else if not exists (Select * FROM tblUsers WHERE id = @receiverID)

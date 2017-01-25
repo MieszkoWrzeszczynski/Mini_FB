@@ -17,7 +17,7 @@ as begin
 				begin
 					print('Podany mail jest już zajęty')
 					rollback
-					
+
 				end
 			else if exists(
 				select *
@@ -28,23 +28,21 @@ as begin
 				begin
 					print('Podałeś ten sam adres mail')
 					rollback
-					
+
 				end
 			else
 				print('Mail został zmieniony')
-					
+
 		end
 	end
 go
 
 
--- execute
+-- execute -- wykonaj sekwencyjnie
 Select * FROM  tblUsers
 
 UPDATE tblUsers SET email = 'adam@op.pl'  WHERE id = 2
 UPDATE tblUsers SET email = 'adam@op.pl'  WHERE id = 3
 UPDATE tblUsers SET email = 'nowymail@op.pl'  WHERE id = 2
-
-
 
 Select * FROM  tblUsers

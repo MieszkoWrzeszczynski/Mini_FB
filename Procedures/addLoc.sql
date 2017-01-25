@@ -13,7 +13,7 @@ CREATE proc addLoc
 				INSERT INTO tblLocations VALUES(@zipCode,@city,@state,@country)
 		else
 			begin
-				declare @msg varchar(max) 
+				declare @msg varchar(max)
 				set @msg = 'Lokalizacja o kodzie pocztowym: ' + cast(@zipCode as varchar(max))+' już istnieje w bazie'
 				raiserror (@msg, 11,1)
 				return
@@ -24,6 +24,6 @@ CREATE proc addLoc
 	end catch
 go
 
---addLoc
+--addLoc -- wykonaj sekwencyjnie
 exec addLoc '62-654','Leszno','Pakistan','Kantry'
 exec addLoc '62-654','Leszno','Pakistan','Kantry'

@@ -22,7 +22,7 @@ create procedure addGroup
 			raiserror ('Podana lokalizacja nie istnieje', 11,1)
 		else if not exists ( select * from tblPrivacy where id=@privacyID)
 			raiserror ('Podane ustawienie widoczności postów nie istnieje', 11,1)
-		else if (@friendsAmount <= 10)
+		else if (@friendsAmount <= 9)
 			raiserror ('Użytkownik ma za małą liczbę znajomych aby zostać adminem grupy', 11,1)
 		else
 			INSERT INTO tblGroups VALUES(@title,@content,@locationId,@adminId,@privacyID,@catId)
@@ -33,5 +33,8 @@ create procedure addGroup
 	end catch
 go
 
---addGroup check
+--addGroup check -- wykonaj sekwencyjnie
 exec addGroup 'fani kaczora donalda','lubimy donalda','64-300',1,1,1
+
+exec addGroup 'fani kaczora donalda','lubimy donalda','64-300',1,1,1
+

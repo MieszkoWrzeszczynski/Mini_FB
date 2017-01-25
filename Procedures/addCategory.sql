@@ -25,6 +25,7 @@ end try
     end catch
 go
 
---addCat check
+--addCat check -- wykonaj sekwencyjnie
 exec addCategory "hodowla kotów"
+
 exec addCategory "hodowla kotów"
