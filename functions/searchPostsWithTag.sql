@@ -11,11 +11,15 @@ begin
         declare @tagID int
 		set @tagID = (select id from tblTags WHERE title = @tag)
 
-		declare @postsID int
-        set @postsID = (select postID from tblPostTags where tagID in (@tagID))
+		DECLARE @postsID TABLE
+			(
+			  id int
+			)
+
+        INSERT INTO @postsID  select postID from tblPostTags where tagID = @tagID
 
 		insert into @posts
-		select id,title,content from tblPosts where id in (@postsID)
+		select id,title,content from tblPosts where id in (Select id FROM @postsID )
 return
 end
 

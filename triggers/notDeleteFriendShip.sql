@@ -16,6 +16,6 @@ as
 go
 
 -- execute
-Select * FROM  tblFriendships
+Select * FROM  tblFriendships  WHERE id = 2
 DELETE FROM tblFriendships  WHERE id = 2
-Select * FROM  tblFriendships
+Select * FROM  tblFriendships  WHERE id = 2

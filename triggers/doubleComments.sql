@@ -7,9 +7,12 @@ on tblComments
 after insert
 as begin
 		if exists(
-			select authorID
-			from tblComments
-		)
+		select   u.authorID
+				from tblComments u INNER JOIN INSERTED i
+				on u.authorID = i.authorID and u.postID = i.postID
+				GROUP BY u.authorID
+				HAVING (count(u.authorID)) > 1
+	    )
 		begin
 			print('Ten post został już przez Ciebie skomentowany')
 			rollback
@@ -20,9 +23,11 @@ go
 
 
 -- execute
+-- wykonac sekwencyjnie linia po lini (trigger pierwszy)
 Select * FROM  tblComments
 
-INSERT INTO tblComments VALUES(DEFAULT,1,3,'Pięknie wyglądasz Januszu w tym szaliku :)'),
-(DEFAULT,1,3,'i w tej czapce!')
+INSERT INTO tblComments VALUES(DEFAULT,1,3,'Pięknie wyglądasz Januszu w tym szaliku :)')
 
 Select * FROM  tblComments
+
+INSERT INTO tblComments VALUES(DEFAULT,1,3,'i w tej czapce!')
