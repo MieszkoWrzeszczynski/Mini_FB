@@ -16,6 +16,7 @@ as
 go
 
 -- execute
+select * from tblRelationships
 Select * FROM  tblFriendships  WHERE id = 2
 DELETE FROM tblFriendships  WHERE id = 2
 Select * FROM  tblFriendships  WHERE id = 2

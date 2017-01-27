@@ -20,7 +20,7 @@ begin try
 			raiserror ('Nie istnieje grupa o podanym ID', 11,1)
 			return
         end
-	else if @admin_id not in (select id FROM tblGroups where adminID = @admin_id)
+	else if @admin_id in (select adminID FROM tblGroups where adminID = @admin_id)
 		begin
 			raiserror ('Ten użytkownik jest już adminem tej grupy', 11,1)
 			return

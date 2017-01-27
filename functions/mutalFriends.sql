@@ -37,8 +37,10 @@ go
 
 --1 check
 select * from mutalFriends(2,1)
+select count(*) from mutalFriends(2,1)
 
-select * from mutalFriends(2,1)
+select * from mutalFriends(1,2)
+select count(*) as 'mutal friends count' from mutalFriends(1,2)
 
 --2 check
 select * from mutalFriends(1,11)

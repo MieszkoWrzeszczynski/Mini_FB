@@ -209,10 +209,10 @@ INSERT INTO tblTags VALUES('snapchat',12),('facebook',12),('instagram',12),('twi
 
 -- Relationships
 INSERT INTO tblRelationships VALUES('Przyjaciele'),('Wrogowie'),('Byli znajomi'),('Żona'),('Brat'),('Ziomek z przedszkola')
-INSERT INTO tblRelationships VALUES('Konfident'),('Znajomy którego nie widziałem na oczy xD'),('Współlokator syfiarz')
+
 ---- FREINDSHIPS
 INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT),(1,3,0,1,1,DEFAULT),(1,4,0,1,1,DEFAULT),(1,5,0,1,1,DEFAULT),(1,6,0,1,1,DEFAULT),(1,7,0,1,1,DEFAULT),(1,8,0,1,1,DEFAULT),(1,9,0,1,1,DEFAULT),(1,10,0,1,1,DEFAULT),(1,11,0,1,1,DEFAULT),(1,12,0,1,1,DEFAULT)
-INSERT INTO tblFriendships VALUES(2,3,0,1,1,DEFAULT),(2,4,0,1,1,DEFAULT),(2,5,0,1,1,DEFAULT),(2,6,0,1,1,DEFAULT),(2,7,0,1,1,DEFAULT),(2,8,0,1,1,DEFAULT),(2,9,0,1,1,DEFAULT),(2,10,0,1,1,DEFAULT),(11,2,0,1,1,DEFAULT),(12,2,0,1,1,DEFAULT)
+INSERT INTO tblFriendships VALUES(2,3,0,1,1,DEFAULT),(2,4,0,1,1,DEFAULT),(2,5,0,1,1,DEFAULT),(2,6,0,1,1,DEFAULT),(2,7,0,1,1,DEFAULT),(2,8,0,1,1,DEFAULT),(2,9,0,1,1,DEFAULT),(2,10,0,1,1,DEFAULT),(11,2,0,1,1,DEFAULT),(12,2,0,1,1,DEFAULT),(15,2,0,1,1,DEFAULT)
 --INSERT INTO tblFriendships VALUES(1,2,0,1,1,DEFAULT),(1,3,0,1,1,DEFAULT),(4,1,0,1,1,DEFAULT)
 --INSERT INTO tblFriendships VALUES(2,3,0,1,1,DEFAULT),(2,4,0,1,1,DEFAULT),(1,5,0,1,1,DEFAULT),(5,2,0,1,1,DEFAULT)
 

@@ -36,6 +36,6 @@ go
 
 
 --addUser check
-exec addUser 'Dominika','AllahAkhbar','adam@op.pl','1231231','1232',0,'49-654'
-exec addUser 'Dominika','AllahAkhbar','hmery@op.pl','1231231','1232',0,'62-654'
-exec addUser 'Dominika','AllahAkhbar','hmery@op.pl','1231231','1232',0,'62-654'
+exec addUser 'Dominika','Jassem','adam@op.pl','1231231','1232',0,'49-654'
+exec addUser 'Dominika','Jassem','hmery@op.pl','1231231','1232',0,'66-400'
+exec addUser 'Dominika','Jassem','hmery@op.pl','1231231','1232',0,'66-400'
